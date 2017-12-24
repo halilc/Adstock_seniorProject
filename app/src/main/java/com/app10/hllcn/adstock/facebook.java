@@ -75,7 +75,6 @@ public class facebook extends Activity {
         queue = Volley.newRequestQueue(this);  // this = context
         url = "http://178.62.210.159/api/send_facebook_user_token";
 
-
         callbackManager = CallbackManager.Factory.create();
         LoginManager.getInstance().registerCallback(callbackManager,
                 new FacebookCallback<LoginResult>() {
@@ -86,6 +85,7 @@ public class facebook extends Activity {
                         //Log.e("TOKENN",AccessToken.getCurrentAccessToken().getToken());
                         profile = Profile.getCurrentProfile();
                         //Log.e("PROFİLE",profile.getId());
+                        Log.e("PROFİLE",profile.getName());
 
                         httppost(AccessToken.getCurrentAccessToken().getToken(),profile.getId());
                     }
