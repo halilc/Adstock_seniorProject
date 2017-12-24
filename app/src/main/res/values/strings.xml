@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">adstock</string>
+
+
+    <string name="facebook_app_id">147659769291677</string>
+    <string name="fb_login_protocol_scheme">fb147659769291677</string>
+
+    <string name="btn_get_location">GET MY LOCATION</string>
+    <string name="btn_start_location_updates">START LOCATION UPDATES</string>
+    <string name="btn_stop_location_updates">STOP LOCATION UPDATES</string>
+
+</resources>
