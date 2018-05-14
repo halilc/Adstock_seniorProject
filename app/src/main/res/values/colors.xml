@@ -7,4 +7,7 @@
     <color name="view_bg">#dad8d8</color>
     <color name="white">#ffffff</color>
     <color name="btn_bg">#3e4a56</color>
+
+    <color name="indigo">#200cd1</color>
+    <color name="pink">#8de108</color>
 </resources>

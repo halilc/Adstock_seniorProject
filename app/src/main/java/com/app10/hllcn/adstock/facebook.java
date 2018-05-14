@@ -52,10 +52,6 @@ import java.util.Map;
 
 import static com.facebook.AccessTokenManager.TAG;
 
-/**
- * Created by pcroot on 12/11/2017.
- */
-
 public class facebook extends Activity {
     private CallbackManager callbackManager;
     private Button loginButton;
@@ -73,7 +69,7 @@ public class facebook extends Activity {
         FacebookSdk.sdkInitialize(getApplicationContext());
         AppEventsLogger.activateApp(this);
         queue = Volley.newRequestQueue(this);  // this = context
-        url = "http://178.62.210.159/api/send_facebook_user_token";
+        url = "http://178.62.210.159:8000/api/send_facebook_user_token";
 
         callbackManager = CallbackManager.Factory.create();
         LoginManager.getInstance().registerCallback(callbackManager,
@@ -86,7 +82,6 @@ public class facebook extends Activity {
                         profile = Profile.getCurrentProfile();
                         //Log.e("PROFİLE",profile.getId());
                         Log.e("PROFİLE",profile.getName());
-
                         httppost(AccessToken.getCurrentAccessToken().getToken(),profile.getId());
                     }
                     @Override
@@ -101,6 +96,7 @@ public class facebook extends Activity {
                 });
         LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("public_profile"));
     }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
@@ -108,11 +104,13 @@ public class facebook extends Activity {
         Log.d(TAG, "onActivityResult:" + requestCode + ":" + resultCode + ":" + data);
         callbackManager.onActivityResult(requestCode, resultCode, data);
         }
+
     @Override
     public void onResume() {
 
         super.onResume();
     }
+
     public void httppost( final String token,final String user_id){
         StringRequest postRequest = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>()
@@ -137,7 +135,6 @@ public class facebook extends Activity {
             @Override
             protected Map<String, String> getParams()
             {
-
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("facebook_id",user_id);
                 params.put("user_token",token);
@@ -148,6 +145,7 @@ public class facebook extends Activity {
         };
         queue.add(postRequest);
     }
+
     private void writeToFile(String data) {
         try {
             OutputStreamWriter outputStreamWriter = new OutputStreamWriter(getApplicationContext().openFileOutput("user_info.json", Context.MODE_PRIVATE));

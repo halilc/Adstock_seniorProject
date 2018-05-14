@@ -1,5 +1,6 @@
 package com.app10.hllcn.adstock;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Intent;
@@ -38,6 +39,9 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.onesignal.OneSignal;
+
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -46,20 +50,25 @@ import static com.google.android.gms.location.LocationServices.getFusedLocationP
 public class Main2 extends Activity {
 
     private LocationRequest mLocationRequest;
-    private long UPDATE_INTERVAL = 1 * 1000;  /* 10 secs */
-    private long FASTEST_INTERVAL = 2000; /* 2 sec */
+    private long UPDATE_INTERVAL = 10 * 1000;  /* 10 secs */
+    private long FASTEST_INTERVAL = 10000; /* 2 sec */
     private RequestQueue queue;
     private String url;
 
     public static AccessToken token;
     private String msg;
-    private Button facebook;
+    private Button facebook, test,personal,showcamp;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main2);
         startLocationUpdates();
 
+        test = findViewById(R.id.test);
+        personal = findViewById(R.id.personal);
+        showcamp = findViewById(R.id.showcamp);
         facebook = (Button) findViewById(R.id.facebook);
         queue = Volley.newRequestQueue(this);  // this = context
         url = "http://178.62.210.159:8000/api/send_location";
@@ -77,6 +86,28 @@ public class Main2 extends Activity {
         });
         token  = com.app10.hllcn.adstock.facebook.token;
 
+
+        test.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Main2.this, test.class);
+                startActivity(intent);
+            }
+        });
+        personal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Main2.this, personal.class);
+                startActivity(intent);
+            }
+        });
+        showcamp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Main2.this, showCamp.class);
+                startActivity(intent);
+            }
+        });
 
     }
     protected void startLocationUpdates() {
@@ -149,6 +180,7 @@ public class Main2 extends Activity {
                 params.put("user_id","2" );
                 params.put("lat", latitude.toString());
                 params.put("long", longitude.toString());
+
                 return params;
             }
         };

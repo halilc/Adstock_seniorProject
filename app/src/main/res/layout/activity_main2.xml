@@ -1,8 +1,7 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/view_bg"
     android:gravity="center_horizontal"
     android:orientation="vertical">
@@ -15,17 +14,32 @@
 
     <Button
         android:id="@+id/facebook"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
         android:layout_marginTop="100dp"
-        android:text="Facebook Login" />
-    <TextView
-        android:id="@+id/youre"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="280dp"
-        android:text="You Are At"
-        android:textColor="@color/white"
-        android:textSize="30dp"
-        android:textStyle="bold" />
+        android:text="Facebook Login"
+        android:theme="@style/MyButton"/>
+
+
+    <Button
+        android:id="@+id/test"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center_horizontal"
+        android:text="TEST"
+        android:theme="@style/MyButton"/>
+    <Button
+        android:id="@+id/personal"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center_horizontal"
+        android:text="Personal"
+        android:theme="@style/MyButton"/>
+    <Button
+        android:id="@+id/showcamp"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center_horizontal"
+        android:text="Show Campaings"
+        android:theme="@style/MyButton"/>
 </LinearLayout>

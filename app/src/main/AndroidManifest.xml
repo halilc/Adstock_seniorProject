@@ -21,6 +21,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".facebook"></activity>
+        <activity android:name=".test"/>
+        <activity android:name=".personal"/>
+        <activity android:name=".showCamp"/>
 
         <meta-data android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id"/>
@@ -42,6 +45,9 @@
 
 
 
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="4622f6cd46c7cd08a5296bcbdf01f7c3a3500317" />
     </application>
 
 </manifest>
