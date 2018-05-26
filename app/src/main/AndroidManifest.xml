@@ -20,7 +20,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".facebook"></activity>
         <activity android:name=".test"/>
         <activity android:name=".personal"/>
         <activity android:name=".showCamp"/>

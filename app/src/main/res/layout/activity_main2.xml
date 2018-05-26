@@ -11,16 +11,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
         android:src="@drawable/adstock" />
-
-    <Button
-        android:id="@+id/facebook"
-        android:layout_width="150dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="100dp"
-        android:text="Facebook Login"
-        android:theme="@style/MyButton"/>
-
-
     <Button
         android:id="@+id/test"
         android:layout_width="150dp"
