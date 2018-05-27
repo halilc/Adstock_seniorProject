@@ -58,10 +58,10 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.google.android.gms.internal.zzbgp.NULL;
 import static com.google.android.gms.location.LocationServices.getFusedLocationProviderClient;
 
 public class Main2 extends Activity {
-
     private LocationRequest mLocationRequest;
     private long UPDATE_INTERVAL = 10 * 1000;  /* 10 secs */
     private long FASTEST_INTERVAL = 10000; /* 2 sec */
@@ -69,14 +69,11 @@ public class Main2 extends Activity {
     private String url,url2;
     private String[] interest_list;
     private String msg;
-
     private Button facebook, test,personal,showcamp;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
-        startLocationUpdates();
         test = findViewById(R.id.test);
         personal = findViewById(R.id.personal);
         showcamp = findViewById(R.id.showcamp);
@@ -123,7 +120,7 @@ public class Main2 extends Activity {
                 startActivity(intent);
             }
         });
-
+        startLocationUpdates();
     }
     public void httppost( final String interests){
         StringRequest postRequest = new StringRequest(Request.Method.POST, url,
@@ -180,10 +177,10 @@ public class Main2 extends Activity {
             protected Map<String, String> getParams()
             {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("user_id",readFromFile() );
-                params.put("lat", latitude.toString());
-                params.put("long", longitude.toString());
-
+                    Log.e("USERID",readFromFile());
+                    params.put("user_id",readFromFile());
+                    params.put("lat", latitude.toString());
+                    params.put("long", longitude.toString());
                 return params;
             }
         };
@@ -200,9 +197,7 @@ public class Main2 extends Activity {
         }
     }
     private String readFromFile() {
-
         String ret = "";
-
         try {
             InputStream inputStream = getApplicationContext().openFileInput("adstock.json");
             Log.e("file",inputStream.toString());
@@ -225,7 +220,6 @@ public class Main2 extends Activity {
         } catch (IOException e) {
             Log.e("login activity", "Can not read file: " + e.toString());
         }
-
         return ret;
     }
     protected void startLocationUpdates() {

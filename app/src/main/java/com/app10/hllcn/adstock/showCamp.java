@@ -48,10 +48,13 @@ public class showCamp extends Activity {
     private long UPDATE_INTERVAL = 10 * 1000;  /* 10 secs */
     private long FASTEST_INTERVAL = 10000; /* 2 sec */
     private RequestQueue queue;
+    private Double la;
+    private Double lo;
     private String url;
     private String msg;
     private String back_response;
-    private String[] titles = {};
+    private String[] titles = {"Lemar","SegaFredo"};
+    private String[] descriptions = {"%50 İndirim","İkinci Kahve Bedava"};
     private JSONArray file_repsonse;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,14 +63,12 @@ public class showCamp extends Activity {
         url = "http://178.62.210.159:8000/api/get_nearby_advertisements";
         startLocationUpdates();
         queue = Volley.newRequestQueue(this);  // this = context
-
-
-        VerticalAdapter adapter = new VerticalAdapter(titles);
+        VerticalAdapter adapter = new VerticalAdapter(titles,descriptions);
         MultiSnapRecyclerView recyclerView = (MultiSnapRecyclerView) findViewById(R.id.recycler_view);
         LinearLayoutManager manager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(manager);
         recyclerView.setAdapter(adapter);
-        Log.e("IDDDDDDD",readFromFile());
+        //Log.e("IDDDDDDD",readFromFile());
 
     }
     public void httppost( final Double latitude ,final Double longitude){
@@ -78,7 +79,6 @@ public class showCamp extends Activity {
                     public void onResponse(String response) {
                         // response
                         Log.e("Response", response);
-
                     }
                 },
                 new Response.ErrorListener()
@@ -95,11 +95,10 @@ public class showCamp extends Activity {
             protected Map<String, String> getParams()
             {
                 Map<String, String> params = new HashMap<String, String>();
-                //Log.e("ppppppppppp","pppppppppppp");
+                Log.e("ppppppppppp","pppppppppppp");
                 params.put("user_id",readFromFile());
                 params.put("lat", latitude.toString());
                 params.put("long", longitude.toString());
-
                 return params;
             }
         };
@@ -146,14 +145,11 @@ public class showCamp extends Activity {
         Log.e("--->>",msg);
         httppost(location.getLatitude(),location.getLongitude());
     }
-
     public void getLastLocation() {
-
         FusedLocationProviderClient locationClient = getFusedLocationProviderClient(this);
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
             //   Permission eklenip düzenlencek
-
             return;
         }
         locationClient.getLastLocation()

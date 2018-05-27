@@ -13,9 +13,10 @@ import android.widget.TextView;
 public class VerticalAdapter extends RecyclerView.Adapter<VerticalAdapter.ViewHolder> {
 
     private String[] titles;
-
-    public VerticalAdapter(String[] titles) {
+    private String[] descriptions;
+    public VerticalAdapter(String[] titles,String[] descriptions) {
         this.titles = titles;
+        this.descriptions = descriptions;
     }
 
     @Override
@@ -26,8 +27,13 @@ public class VerticalAdapter extends RecyclerView.Adapter<VerticalAdapter.ViewHo
     @Override
     public void onBindViewHolder(VerticalAdapter.ViewHolder holder, int position) {
         String title = titles[position];
-        String description = "Hello world, " + title;
-        Log.d("TitleBurda", title);
+        String description = descriptions[position];
+        Log.d("TitleBurda",title);
+        if(position == 0){
+            holder.logo.setImageResource(R.drawable.lemar);
+        }else{
+            holder.logo.setImageResource(R.drawable.sega);
+        }
         holder.title.setText(title);
         holder.description.setText(description);
     }
@@ -44,7 +50,7 @@ public class VerticalAdapter extends RecyclerView.Adapter<VerticalAdapter.ViewHo
             this.logo = itemView.findViewById(R.id.icon);
             this.title = itemView.findViewById(R.id.title);
             this.description = (TextView) itemView.findViewById(R.id.description);
-            logo.setImageDrawable(itemView.getResources().getDrawable(R.drawable.lemar));
+            //logo.setImageDrawable(itemView.getResources().getDrawable(R.drawable.lemar));
         }
 
     }
