@@ -32,12 +32,14 @@ import com.takusemba.multisnaprecyclerview.MultiSnapRecyclerView;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.json.JSONTokener;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -52,9 +54,10 @@ public class showCamp extends Activity {
     private Double lo;
     private String url;
     private String msg;
+    private boolean request=false;
     private String back_response;
-    private String[] titles = {"Lemar","SegaFredo"};
-    private String[] descriptions = {"%50 İndirim","İkinci Kahve Bedava"};
+    private ArrayList<String> titles = new ArrayList<String>();
+    private ArrayList<String> descriptions = new ArrayList<String>();
     private JSONArray file_repsonse;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,11 +66,8 @@ public class showCamp extends Activity {
         url = "http://178.62.210.159:8000/api/get_nearby_advertisements";
         startLocationUpdates();
         queue = Volley.newRequestQueue(this);  // this = context
-        VerticalAdapter adapter = new VerticalAdapter(titles,descriptions);
-        MultiSnapRecyclerView recyclerView = (MultiSnapRecyclerView) findViewById(R.id.recycler_view);
-        LinearLayoutManager manager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-        recyclerView.setLayoutManager(manager);
-        recyclerView.setAdapter(adapter);
+
+
         //Log.e("IDDDDDDD",readFromFile());
 
     }
@@ -79,6 +79,28 @@ public class showCamp extends Activity {
                     public void onResponse(String response) {
                         // response
                         Log.e("Response", response);
+                        request = true;
+                        JSONObject object = null;
+                        try {
+                            object = (JSONObject) new JSONTokener(response).nextValue();
+
+                            JSONArray locations = object.getJSONArray("advertisement_list");
+                            for (int i = 0; i < locations.length(); i++) {
+                                JSONObject explrObject = locations.getJSONObject(i);
+                                titles.add(explrObject.get("place_name").toString());
+                                descriptions.add(explrObject.get("message").toString());
+                                Log.e("logo",explrObject.get("image").toString());
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+
+                        VerticalAdapter adapter = new VerticalAdapter(titles,descriptions);
+                        MultiSnapRecyclerView recyclerView = (MultiSnapRecyclerView) findViewById(R.id.recycler_view);
+                        LinearLayoutManager manager = new LinearLayoutManager(showCamp.this, LinearLayoutManager.VERTICAL, false);
+                        recyclerView.setLayoutManager(manager);
+                        recyclerView.setAdapter(adapter);
                     }
                 },
                 new Response.ErrorListener()
@@ -143,7 +165,8 @@ public class showCamp extends Activity {
         //Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
         LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
         Log.e("--->>",msg);
-        httppost(location.getLatitude(),location.getLongitude());
+        if(request == false){
+            httppost(location.getLatitude(),location.getLongitude());}
     }
     public void getLastLocation() {
         FusedLocationProviderClient locationClient = getFusedLocationProviderClient(this);

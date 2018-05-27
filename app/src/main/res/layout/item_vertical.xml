@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#565353"
+    android:background="#ffffff"
     android:gravity="center_vertical"
     android:orientation="horizontal"
     android:padding="8dp">
@@ -28,17 +28,16 @@
             android:id="@+id/title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="#fcfcfc"
+            android:textColor="#6b6767"
             android:textSize="16sp"
             android:textStyle="bold"
             />
-
         <TextView
             android:id="@+id/description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:textColor="#fcfcfc"
+            android:textColor="#6b6767"
             android:textSize="16sp" />
 
     </LinearLayout>
